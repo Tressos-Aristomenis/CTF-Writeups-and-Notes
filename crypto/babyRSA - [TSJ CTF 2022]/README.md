@@ -167,7 +167,7 @@ Let's define the following polynomials over $\mathbb{Z}/n\mathbb{Z}$.
 
 $$
 \begin{aligned}
-f(x,\ y) &= N - x*y\\
+f(x,\ y) &= N - x*y\\\
 g(x,\ y) &= C_y^2 - C_x^3 - x*C_x - y
 \end{aligned}
 $$
@@ -176,7 +176,7 @@ Notice that $p, q$ are both roots of these polynomials:
 
 $$
 \begin{aligned}
-f(p,\ q) &= N - p*q = 0\\
+f(p,\ q) &= N - p*q = 0\\\
 g(p,\ q) &= C_y^2 - C_x^3 - p*C_x - q = 0
 \end{aligned}
 $$
