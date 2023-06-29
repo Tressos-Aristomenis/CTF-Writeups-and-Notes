@@ -167,8 +167,8 @@ Let's define the following polynomials over $\mathbb{Z}/n\mathbb{Z}$.
 
 $$
 \begin{aligned}
-f(x,\ y) &= N - x*y\\\\
-g(x,\ y) &= C_y^2 - C_x^3 - x*C_x - y
+f(x,\ y) &= N - x\*y\\\\
+g(x,\ y) &= C_y^2 - C_x^3 - x\*C_x - y
 \end{aligned}
 $$
 
