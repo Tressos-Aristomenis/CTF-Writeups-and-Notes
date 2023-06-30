@@ -85,14 +85,14 @@ The flag is randomly padded and stored in the variable $x$. After that, two poin
 
   This is a point of the curve that is defined over $GF(p)$; say $\mathbb{E}_p$.
   
-  $$\begin{aligned}y_p^2 = x^3 + q \pmod p\end{aligned}$$
+  $$y_p^2 = x^3 + q \pmod p$$
 
   Note that $px$ is a multiple of $p$ so it is eliminated $\pmod p$.
 - $(x,\ y_q)$
 
   This is a point of the curve that is defined over $GF(q)$; say $\mathbb{E}_q$.
   
-  $$\begin{aligned}y_q^2 = x^3 + px \pmod q\end{aligned}$$
+  $$y_q^2 = x^3 + px \pmod q$$
 
   Note that $q$ is eliminated $\pmod q$.
 
@@ -176,8 +176,8 @@ Notice that $p, q$ are both roots of these polynomials:
 
 $$
 \begin{aligned}
-f(p,\ q) &= N - p*q = 0\\\\
-g(p,\ q) &= C_y^2 - C_x^3 - p*C_x - q = 0
+f(p,\ q) &= N - p\*q = 0\\\\
+g(p,\ q) &= C_y^2 - C_x^3 - p\*C_x - q = 0
 \end{aligned}
 $$
 
