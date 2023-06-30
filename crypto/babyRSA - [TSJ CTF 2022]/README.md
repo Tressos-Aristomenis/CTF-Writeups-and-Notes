@@ -85,14 +85,14 @@ The flag is randomly padded and stored in the variable $x$. After that, two poin
 
   This is a point of the curve that is defined over $GF(p)$; say $\mathbb{E}_p$.
   
-  $$y_p^2 = x^3 + q \pmod p$$
+  $$y_p^2 = x^3 + q \pmod {p}$$
 
   Note that $px$ is a multiple of $p$ so it is eliminated $\pmod p$.
 - $(x,\ y_q)$
 
   This is a point of the curve that is defined over $GF(q)$; say $\mathbb{E}_q$.
   
-  $$y_q^2 = x^3 + px \pmod q$$
+  $$y_q^2 = x^3 + px \pmod {q}$$
 
   Note that $q$ is eliminated $\pmod q$.
 
@@ -167,8 +167,8 @@ Let's define the following polynomials over $\mathbb{Z}/n\mathbb{Z}$.
 
 $$
 \begin{aligned}
-f(x,\ y) &= N - x\*y\\\\
-g(x,\ y) &= C_y^2 - C_x^3 - x\*C_x - y
+f(x,\ y) &= N - x \ast y\\
+g(x,\ y) &= C_y^2 - C_x^3 - x \ast C_x - y
 \end{aligned}
 $$
 
@@ -176,8 +176,8 @@ Notice that $p, q$ are both roots of these polynomials:
 
 $$
 \begin{aligned}
-f(p,\ q) &= N - p\*q = 0\\\\
-g(p,\ q) &= C_y^2 - C_x^3 - p\*C_x - q = 0
+f(p,\ q) &= N - p \ast q = 0\\
+g(p,\ q) &= C_y^2 - C_x^3 - p \ast C_x - q = 0
 \end{aligned}
 $$
 
