@@ -71,7 +71,7 @@ print(n)
 print(C.xy())
 ```
 
-At first glance, we see there is a standard RSA key generation, i.e. the secret primes $\{p,\ q\}$ and the public key $\{N=pq,\ e\}$. Then, an elliptic curve $\mathbb{E}$ is defined over the composite ring $\mathbb{Z}/n\mathbb{Z}$ with parameters $a = p$ and $b = q$.
+At first glance, we see there is a standard RSA key generation, i.e. the secret primes $p, q$, the modulo $N = p*q$ and the public exponent $e = 65537$. Then, an elliptic curve $\mathbb{E}$ is defined over the composite ring $\mathbb{Z}/n\mathbb{Z}$ with parameters $a = p$ and $b = q$.
 
 We can describe this curve with the following algebraic relationship:
 
