@@ -31,7 +31,7 @@
 
 # Synopsis
 
-The point $C$ belongs to the curve so we create two multivariate polynomials, eliminate one variable using resultants and run `small_roots()` to obtain $q$. Having factored $n$, construct the curve in the composite ring $\mathbb{Z}/n\mathbb{Z}$ and find the base point by calculating $C$ with the inverse of $e$ modulo the curve's order.
+The point $C$ belongs to the curve so we create two multivariate polynomials, eliminate one variable using resultants and run `small_roots()` to obtain $q$. Having factored $N$, construct the curve in the composite ring $\mathbb{Z}/n\mathbb{Z}$ and find the base point by calculating $C$ with the inverse of $e$ modulo the curve's order.
 
 # Source files
 
@@ -71,7 +71,7 @@ print(n)
 print(C.xy())
 ```
 
-At first glance, we see there is a standard RSA key generation, i.e. the secret primes $\{p,\ q\}$ and the public key $\{n=pq,\ e\}$. Then, an elliptic curve $\mathbb{E}$ is defined over the composite ring $\mathbb{Z}/n\mathbb{Z}$ with parameters $a = p$ and $b = q$.
+At first glance, we see there is a standard RSA key generation, i.e. the secret primes $\{p,\ q\}$ and the public key $\{N=pq,\ e\}$. Then, an elliptic curve $\mathbb{E}$ is defined over the composite ring $\mathbb{Z}/n\mathbb{Z}$ with parameters $a = p$ and $b = q$.
 
 We can describe this curve with the following algebraic relationship:
 
@@ -100,7 +100,7 @@ The flag is randomly padded and stored in the variable $x$. After that, two poin
 
 Then, $y_p$ and $y_q$ are combined with the Chinese Remainder Theorem to get the $y$-coordinate that belongs to $\mathbb{E_n}$. 
 
-To summarize, this loop does the same job as the Sage method `E.lift_x(x)`. The reason we can't use this method now is due to $\mathbb{E}_n$ being defined over a composite ring and `lift_x` would try to factor $n$ to lift the point in $\mathbb{E}_p$ and $\mathbb{E}_q$, which is a very hard problem since the prime generation is secure. Therefore we conclude that the flag is randomly padded until the point $(x,\ y)$ is on $\mathbb{E}_n$, where $x$ is the padded flag.
+To summarize, this loop does the same job as the Sage method `E.lift_x(x)`. The reason we can't use this method now is due to $\mathbb{E}_n$ being defined over a composite ring and `lift_x` would try to factor $N$ to lift the point in $\mathbb{E}_p$ and $\mathbb{E}_q$, which is a very hard problem since the prime generation is secure. Therefore we conclude that the flag is randomly padded until the point $(x,\ y)$ is on $\mathbb{E}_n$, where $x$ is the padded flag.
 
 Finally, the encryption is similar to that of RSA but in the additive group:
 
@@ -125,23 +125,23 @@ where $O_n$ is the order of the curve $\mathbb{E}_n$.
 
 Pretty straightforward right? ... Hmm, not at all.
 
-As aforementioned, $\mathbb{E}_n$ is defined over a composite ring so knowning its order is as hard as factoring $n$.
+As aforementioned, $\mathbb{E}_n$ is defined over a composite ring so knowning its order is as hard as factoring $N$.
 
-$n$ is more than 1500 bits long so without a quantum computer, we have no luck here.
+$N$ is more than 1500 bits long so without a quantum computer, we have no luck here.
 
 # Solution
 
 ## q is half the bit length of p
 
-The key to factor $n$ is notice that $q$ is half the bit length of $p$. That's about $\frac{1}{3}$ the bit length of $n$.
+The key to factor $N$ is notice that $q$ is half the bit length of $p$. That's about $\frac{1}{3}$ the bit length of $N$.
 
 $\dfrac{1}{3}$? Where did this come from?
 
-That's because $n$ can be written as the product of three `512`-bit integers, say $a,b,c$.
+That's because $N$ can be written as the product of three `512`-bit integers, say $a,b,c$.
 
-$$n = a * b * c$$
+$$N = a * b * c$$
 
-Since $q$ is 512 bits, we are certain that one (1) of these three (3) variables must be $q$. This makes $q$ about $\frac{1}{3}$ of $n$.
+Since $q$ is 512 bits, we are certain that one (1) of these three (3) variables must be $q$. This makes $q$ about $\frac{1}{3}$ of $N$.
 
 ## Playing with the curve's formula
 
@@ -149,17 +149,17 @@ Since $G$ belongs to $\mathbb{E}_n$, so does $C$.
 
 We know that any point $(x,\ y)$ of $\mathbb{E}_n$ satisfies the following formula:
 
-$$y^2 = x^3 + px + q \pmod n$$
+$$y^2 = x^3 + px + q \pmod N$$
 
 Then substituting with $C = (C_x, C_y)$ coordinates we get:
 
-$$C_y^2 = C_x^3 + p*C_x + q \pmod n$$
+$$C_y^2 = C_x^3 + p*C_x + q \pmod N$$
 
 Let's rewrite the relation above as follows:
 
-$$C_y^2 - C_x^3 - p*C_x - q = 0 \pmod n$$
+$$C_y^2 - C_x^3 - p*C_x - q = 0 \pmod N$$
 
-We know everything apart from $p$ and $q$ but we can't solve for them because we have one relation and two unknowns. Do we know something else about $p,q$? Well, from the RSA part we know that $n = p * q$ and $n$ is known. That's great! Two equations and two unknowns so there is a unique solution.
+We know everything apart from $p$ and $q$ but we can't solve for them because we have one relation and two unknowns. Do we know something else about $p,q$? Well, from the RSA part we know that $N = p * q$ and $N$ is known. That's great! Two equations and two unknowns so there is a unique solution.
 
 ## Constructing the polynomials
 
@@ -181,7 +181,7 @@ g(p,\ q) &= C_y^2 - C_x^3 - p \ast C_x - q = 0
 \end{aligned}
 $$
 
-They are multivariate polynomials but maybe we could eliminate one variable? For example, we could substitute $p = \dfrac{n}{q}$ in the $g$ polynomial. One could substitute with pencil and paper and come up with a univariate polynomial in terms of $q$ but that's a lot of work (*however, it is recommended as an exercise for beginners!*).
+They are multivariate polynomials but maybe we could eliminate one variable? For example, we could substitute $p = \dfrac{N}{q}$ in the $g$ polynomial. One could substitute with pencil and paper and come up with a univariate polynomial in terms of $q$ but that's a lot of work (*however, it is recommended as an exercise for beginners!*).
 
 We could use our beloved resultant that basically does the same thing. You can find more about resultants from [1](https://www.imo.universite-paris-saclay.fr/~meliot/algebra/resultant.pdf), [2](http://buzzard.ups.edu/courses/2016spring/projects/woody-resultants-ups-434-2016.pdf) and some cool Joseph [writeups](https://jsur.in/posts/2021-10-03-tsg-ctf-2021-crypto-writeups).
 
@@ -209,7 +209,7 @@ y^2 + 11913771694063495132568425582147978387779218009404951491138444355803251420
 We have the polynomial:
 
 $$
-h(y) = y^2 + Ay \pmod n
+h(y) = y^2 + Ay \pmod N
 $$
 
 where $A$ is the large integer.
@@ -217,12 +217,12 @@ where $A$ is the large integer.
 For the correct value of $q$ it holds that:
 
 $$
-h(q) = 0 \pmod n
+h(q) = 0 \pmod N
 $$
 
 But what can we do now? This polynomial is defined in $\mathbb{Z}/n\mathbb{Z}$ so we can't apply standard techniques that work in the integers $\mathbb{Z}$.
 
-Recall that $q$ is half $p$'s bit length. This means that $q$ is a *small root* of this polynomial, compared to the size of $n$. It turns out we can use Coppersmith's algorithm to find the roots of the polynomial above. These roots are also known as `small roots`.
+Recall that $q$ is half $p$'s bit length. This means that $q$ is a *small root* of this polynomial, compared to the size of $N$. It turns out we can use Coppersmith's algorithm to find the roots of the polynomial above. These roots are also known as `small roots`.
 
 ## Coppersmith's algortihm
 
@@ -230,11 +230,11 @@ It might be a bit complex to describe how the algorithm works but the intuition 
 
 This is why we cared about $q$ being the half $p$'s bit length.
 
-Let's get *a bit* more technical now. Coppersmith's method will return the small roots of our polynomial modulo a factor of $n$, say $p$, without having to factor $n$ at all. Pretty instance, right? That's lattices for you!
+Let's get *a bit* more technical now. Coppersmith's method will return the small roots of our polynomial modulo a factor of $N$, say $p$, without having to factor $N$ at all. Pretty instance, right? That's lattices for you!
 
 Why is this so important?
 
-While the equations are defined modulo $n$, Coppersmith's small roots algorithm finds a small root modulo *a factor of $n$* and in our case *modulo $p$*.
+While the equations are defined modulo $N$, Coppersmith's small roots algorithm finds a small root modulo *a factor of* $N$ and in our case *modulo* $p$.
 
 Sage's `small_roots()` function is an implementation of Coppersmith's algorithm. However, it requires some parameters:
 
@@ -244,15 +244,15 @@ Sage's `small_roots()` function is an implementation of Coppersmith's algorithm.
 
 - `beta` (or $\beta$)
 
-  That's a value such that $p \geq N^\beta$, where $p$ is a factor of $n$. We know that $p \approx n^{\frac{2}{3}}$ or equivalently $p \geq n^{\frac{2}{3}}$ so:
+  That's a value such that $p \geq N^\beta$, where $p$ is a factor of $N$. We know that $p \approx n^{\frac{2}{3}}$ or equivalently $p \geq n^{\frac{2}{3}}$ so:
   
   $$\beta = \dfrac{2}{3} = 0.666\dots$$
 
 You can check [here](https://doc.sagemath.org/html/en/reference/polynomial_rings/sage/rings/polynomial/polynomial_modn_dense_ntl.html#sage.rings.polynomial.polynomial_modn_dense_ntl.small_roots) for more information.
 
-## Factoring $n$
+## Factoring $N$
 
-Now it's time to factor $n$. Let's run the following code:
+Now it's time to factor $N$. Let's run the following code:
 
 ```py
 roots = h.small_roots(X=2^512, beta=0.66)
@@ -266,19 +266,19 @@ print(roots)
 The second root looks like a candidate for $q$.
 
 ```py
-print(n % q == 0)
+print(N % q == 0)
 ```
 
 ```py
 True
 ```
 
-Boom! We have factored $n$.
+Boom! We have factored $N$.
 
 ```py
 q = int(h.small_roots(X=2^512, beta=0.66)[1])
-assert n % q == 0
-p = n // q
+p = N // q
+assert N == p * q
 print(f'p = {p}')
 print(f'q = {q}')
 ```
@@ -318,10 +318,9 @@ g = Cy^2 - Cx^3 - p*Cx - q
 h = resultant(f, g, p).univariate_polynomial()
 
 q = int(h.small_roots(X=2^512, beta=0.66)[1])
-
-assert N % q == 0
-
 p = N // q
+
+assert N == p * q
 
 E = EllipticCurve(Zmod(N), [p,q])
 Ep = EllipticCurve(GF(p), [p,q])
