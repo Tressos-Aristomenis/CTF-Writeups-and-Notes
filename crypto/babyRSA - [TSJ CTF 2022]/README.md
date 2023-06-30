@@ -96,7 +96,7 @@ The flag is randomly padded and stored in the variable $x$. After that, two poin
 
   Note that $q$ is eliminated $\pmod q$.
 
-*What the function `E.change_ring()` basically does is changing the ring in which the curve $\mathbb{E}$ is defined.*
+*What the function `E.change_ring()` basically does is changing the ring in which the curve* $\mathbb{E}$ *is defined*.
 
 Then, $y_p$ and $y_q$ are combined with the Chinese Remainder Theorem to get the $y$-coordinate that belongs to $\mathbb{E_n}$. 
 
