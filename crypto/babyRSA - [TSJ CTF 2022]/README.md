@@ -85,14 +85,14 @@ The flag is randomly padded and stored in the variable $x$. After that, two poin
 
   This is a point of the curve that is defined over $GF(p)$; say $\mathbb{E}_p$.
   
-  $$y_p^2 = x^3 + q \pmod {p}$$
+  $$y_p^2 \equiv x^3 + q \pmod {p}$$
 
   Note that $px$ is a multiple of $p$ so it is eliminated $\pmod p$.
 - $(x,\ y_q)$
 
   This is a point of the curve that is defined over $GF(q)$; say $\mathbb{E}_q$.
   
-  $$y_q^2 = x^3 + px \pmod {q}$$
+  $$y_q^2 \equiv x^3 + px \pmod {q}$$
 
   Note that $q$ is eliminated $\pmod q$.
 
@@ -117,7 +117,7 @@ Similarly, from [here](https://crypto.stackexchange.com/questions/86663/how-to-f
 
 $$
 \begin{aligned}
-G = Ce^{-1} \pmod {O_n}\quad\quad\quad\quad(1)
+G \equiv Ce^{-1} \pmod {O_n}\quad\quad\quad\quad(1)
 \end{aligned}
 $$
 
@@ -149,15 +149,15 @@ Since $G$ belongs to $\mathbb{E}_n$, so does $C$.
 
 We know that any point $(x,\ y)$ of $\mathbb{E}_n$ satisfies the following formula:
 
-$$y^2 = x^3 + px + q \pmod N$$
+$$y^2 \equiv x^3 + px + q \pmod N$$
 
 Then substituting with $C = (C_x, C_y)$ coordinates we get:
 
-$$C_y^2 = C_x^3 + p*C_x + q \pmod N$$
+$$C_y^2 \equiv C_x^3 + p*C_x + q \pmod N$$
 
 Let's rewrite the relation above as follows:
 
-$$C_y^2 - C_x^3 - p*C_x - q = 0 \pmod N$$
+$$C_y^2 - C_x^3 - p*C_x - q \equiv 0 \pmod N$$
 
 We know everything apart from $p$ and $q$ but we can't solve for them because we have one relation and two unknowns. Do we know something else about $p,q$? Well, from the RSA part we know that $N = p * q$ and $N$ is known. That's great! Two equations and two unknowns so there is a unique solution.
 
@@ -209,7 +209,7 @@ y^2 + 11913771694063495132568425582147978387779218009404951491138444355803251420
 We have the polynomial:
 
 $$
-h(y) = y^2 + Ay \pmod N
+h(y) \equiv y^2 + Ay \pmod N
 $$
 
 where $A$ is the large integer.
@@ -217,7 +217,7 @@ where $A$ is the large integer.
 For the correct value of $q$ it holds that:
 
 $$
-h(q) = 0 \pmod N
+h(q) \equiv 0 \pmod N
 $$
 
 But what can we do now? This polynomial is defined in $\mathbb{Z}/n\mathbb{Z}$ so we can't apply standard techniques that work in the integers $\mathbb{Z}$.
