@@ -31,7 +31,7 @@
 
 # Synopsis
 
-The point $C$ belongs to the curve so we create two multivariate polynomials, eliminate one variable using resultants and run `small_roots()` to obtain $q$. Having factored $N$, construct the curve in the composite ring $\mathbb{Z}/n\mathbb{Z}$ and find the base point by calculating $C$ with the inverse of $e$ modulo the curve's order.
+The point $C$ belongs to the curve so we create two multivariate polynomials, eliminate one variable using resultants and run `small_roots()` to obtain $q$. Having factored $n$, construct the curve in the composite ring $\mathbb{Z}/n\mathbb{Z}$ and find the base point by calculating $C$ with the inverse of $e$ modulo the curve's order.
 
 # Source files
 
@@ -139,7 +139,7 @@ $\dfrac{1}{3}$? Where did this come from?
 
 That's because $n$ can be written as the product of three `512`-bit integers, say $a,b,c$.
 
-$$N = a * b * c$$
+$$n = a * b * c$$
 
 Since $q$ is 512 bits, we are certain that one (1) of these three (3) variables must be $q$. This makes $q$ about $\frac{1}{3}$ of $n$.
 
@@ -159,7 +159,7 @@ Let's rewrite the relation above as follows:
 
 $$C_y^2 - C_x^3 - p*C_x - q = 0 \pmod n$$
 
-We know everything apart from $p$ and $q$ but we can't solve for them because we have one relation and two unknowns. Do we know something else about $p,q$? Well, from the RSA part we know that $N = p * q$ and $N$ is known. That's great! Two equations and two unknowns so there is a unique solution.
+We know everything apart from $p$ and $q$ but we can't solve for them because we have one relation and two unknowns. Do we know something else about $p,q$? Well, from the RSA part we know that $n = p * q$ and $n$ is known. That's great! Two equations and two unknowns so there is a unique solution.
 
 ## Constructing the polynomials
 
@@ -167,7 +167,7 @@ Let's define the following polynomials over $\mathbb{Z}/n\mathbb{Z}$.
 
 $$
 \begin{aligned}
-f(x,\ y) &= N - x \ast y\\
+f(x,\ y) &= n - x \ast y\\
 g(x,\ y) &= C_y^2 - C_x^3 - x \ast C_x - y
 \end{aligned}
 $$
@@ -176,7 +176,7 @@ Notice that $p, q$ are both roots of these polynomials:
 
 $$
 \begin{aligned}
-f(p,\ q) &= N - p \ast q = 0\\
+f(p,\ q) &= n - p \ast q = 0\\
 g(p,\ q) &= C_y^2 - C_x^3 - p \ast C_x - q = 0
 \end{aligned}
 $$
@@ -244,7 +244,7 @@ Sage's `small_roots()` function is an implementation of Coppersmith's algorithm.
 
 - `beta` (or $\beta$)
 
-  That's a value such that $p \geq N^\beta$, where $p$ is a factor of $n$. We know that $p \approx N^{\frac{2}{3}}$ or equivalently $p \geq N^{\frac{2}{3}}$ so:
+  That's a value such that $p \geq N^\beta$, where $p$ is a factor of $n$. We know that $p \approx n^{\frac{2}{3}}$ or equivalently $p \geq n^{\frac{2}{3}}$ so:
   
   $$\beta = \dfrac{2}{3} = 0.666\dots$$
 
@@ -266,7 +266,7 @@ print(roots)
 The second root looks like a candidate for $q$.
 
 ```py
-print(N % q == 0)
+print(n % q == 0)
 ```
 
 ```py
@@ -277,8 +277,8 @@ Boom! We have factored $n$.
 
 ```py
 q = int(h.small_roots(X=2^512, beta=0.66)[1])
-assert N % q == 0
-p = N // q
+assert n % q == 0
+p = n // q
 print(f'p = {p}')
 print(f'q = {q}')
 ```
