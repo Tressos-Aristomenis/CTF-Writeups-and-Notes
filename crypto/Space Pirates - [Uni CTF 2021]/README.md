@@ -14,7 +14,7 @@
         </tr>
         <tr>
           <td style="border: 1px solid grey; text-align: center"><b>CTF</b></td>
-          <td style="border: 1px solid grey; text-align: center"><a href="https://ctftime.org/event/1547/" target="_blank">Uni CTF</a></td>
+          <td style="border: 1px solid grey; text-align: center"><a href="https://ctftime.org/event/1511/" target="_blank">Uni CTF</a></td>
         </tr>
         <tr>
           <td style="border: 1px solid grey; text-align: center"><b>Year</b></td>
@@ -51,7 +51,7 @@ $$
 Formulating it mathematically, it holds that:
 
 $$
-a_i = \left\{
+a_i = \left\\{
 \begin{array}{ll}
 s & i = 0 \\
 H(a_{i-1}) & 1 \leq i \leq 18\\
