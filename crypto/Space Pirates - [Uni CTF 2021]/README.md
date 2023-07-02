@@ -114,7 +114,7 @@ We are given the following:
 Recall how the coefficients are computed:
 
 $$
-a_i = \left\{
+a_i = \left\\{
 \begin{array}{ll}
       s & i = 0 \\
       H(a_{i-1}) & 1 \leq i \leq 18\\
